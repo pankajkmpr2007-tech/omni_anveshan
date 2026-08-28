@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Anveshan — Discover Beyond the Ordinary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,900;1,9..144,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233A;
+    --ink-soft:#2A3B57;
+    --paper:#F6F1E4;
+    --paper-raised:#FCF9F1;
+    --marigold:#E7A427;
+    --terracotta:#B44A2B;
+    --forest:#2F5D45;
+    --slate:#5B6472;
+    --line:#DCD2BB;
+    --danger:#B4432F;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Public Sans', sans-serif;
+    line-height:1.5;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em;}
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--terracotta);
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(246,241,228,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1180px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .brand{display:flex; align-items:baseline; gap:10px;}
+  .brand-mark{font-family:'Fraunces',serif; font-weight:900; font-size:22px; letter-spacing:-0.02em;}
+  .brand-tag{font-size:12px; color:var(--slate); display:none;}
+  @media(min-width:640px){.brand-tag{display:inline;}}
+  .nav-links{display:flex; align-items:center; gap:22px; font-size:14px; font-weight:600;}
+  .nav-links a{text-decoration:none; opacity:0.75;}
+  .nav-links a:hover{opacity:1;}
+  .offline-chip{
+    display:flex; align-items:center; gap:7px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    padding:6px 11px; border-radius:99px; border:1px solid var(--line);
+    background:var(--paper-raised); cursor:pointer; user-select:none;
+  }
+  .offline-dot{width:7px;height:7px;border-radius:50%; background:var(--forest);}
+  .offline-chip.off .offline-dot{background:#B7ADA0;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:76px 0 56px; position:relative; overflow:hidden;}
+  .hero-grid{display:grid; grid-template-columns:1.15fr 0.85fr; gap:48px; align-items:center;}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+  .hero h1{font-size:clamp(34px,5vw,56px); line-height:1.04;}
+  .hero h1 em{font-style:italic; color:var(--terracotta);}
+  .hero p.lede{margin-top:20px; font-size:17px; color:var(--ink-soft); max-width:52ch;}
+  .cta-row{display:flex; gap:12px; margin-top:30px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Public Sans',sans-serif; font-weight:700; font-size:14px;
+    padding:13px 22px; border-radius:99px; border:1.5px solid var(--ink);
+    cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    background:var(--ink); color:var(--paper); transition:transform .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn.ghost{background:transparent; color:var(--ink);}
+  .stat-strip{display:flex; gap:28px; margin-top:40px; flex-wrap:wrap;}
+  .stat-strip div{border-left:2px solid var(--terracotta); padding-left:12px;}
+  .stat-num{font-family:'Fraunces',serif; font-weight:900; font-size:26px;}
+  .stat-label{font-size:11.5px; color:var(--slate); text-transform:uppercase; letter-spacing:0.06em; font-family:'IBM Plex Mono',monospace;}
+
+  /* passport stamp visual */
+  .stamp-panel{
+    background:var(--paper-raised); border:1.5px solid var(--ink);
+    border-radius:var(--radius); padding:26px; position:relative;
+    box-shadow:6px 6px 0 rgba(22,35,58,0.08);
+  }
+  .stamp-panel::before{
+    content:"VERIFIED FIELD NOTES"; position:absolute; top:-11px; left:22px;
+    background:var(--marigold); color:var(--ink); font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px; letter-spacing:0.1em; padding:3px 10px; border-radius:99px; border:1.5px solid var(--ink);
+  }
+  .stamp-row{display:flex; justify-content:space-between; padding:11px 0; border-bottom:1px dashed var(--line); font-size:13.5px;}
+  .stamp-row:last-child{border-bottom:none;}
+  .stamp-row span:first-child{color:var(--slate);}
+  .stamp-row span:last-child{font-weight:700; font-family:'IBM Plex Mono',monospace;}
+
+  section{padding:64px 0;}
+  .section-head{max-width:640px; margin-bottom:34px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,36px); margin-top:8px;}
+  .section-head p{color:var(--slate); margin-top:10px; font-size:15.5px;}
+
+  /* ---------- QUIZ ---------- */
+  #discover{background:var(--ink); color:var(--paper); border-radius:0;}
+  #discover .section-head p{color:#B9C2D4;}
+  #discover .eyebrow{color:var(--marigold);}
+  .quiz-card{
+    background:var(--paper-raised); color:var(--ink); border-radius:var(--radius);
+    padding:32px; border:1.5px solid var(--ink);
+  }
+  .q-group{margin-bottom:24px;}
+  .q-label{font-weight:700; font-size:14px; margin-bottom:10px; display:block;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    padding:9px 15px; border-radius:99px; border:1.5px solid var(--line);
+    font-size:13.5px; cursor:pointer; background:#fff; font-weight:600; transition:.15s;
+  }
+  .chip.active{background:var(--terracotta); border-color:var(--terracotta); color:#fff;}
+  .chip:hover{border-color:var(--terracotta);}
+  #find-btn{margin-top:6px; width:100%; justify-content:center;}
+  #quiz-result{margin-top:26px;}
+
+  .match-card{
+    background:#fff; border:1.5px solid var(--ink); border-radius:var(--radius);
+    padding:22px; display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:start;
+  }
+  .match-badge{
+    font-family:'Fraunces',serif; font-weight:900; font-size:22px;
+    background:var(--marigold); color:var(--ink); border:1.5px solid var(--ink);
+    border-radius:50%; width:64px; height:64px; display:flex; align-items:center; justify-content:center;
+    transform:rotate(-6deg); flex-shrink:0;
+  }
+  .match-reason{font-size:12.5px; color:var(--slate); margin-top:6px;}
+  .match-reason b{color:var(--forest);}
+
+  /* ---------- EXPLORE ---------- */
+  .filter-bar{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:26px;}
+  .map-panel{
+    background:var(--paper-raised); border:1.5px solid var(--line); border-radius:var(--radius);
+    position:relative; height:340px; margin-bottom:30px; overflow:hidden;
+    background-image:radial-gradient(var(--line) 1px, transparent 1px);
+    background-size:18px 18px;
+  }
+  .map-panel .map-label{position:absolute; bottom:12px; left:16px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--slate);}
+  .pin{
+    position:absolute; width:11px; height:11px; border-radius:50% 50% 50% 0;
+    background:var(--terracotta); border:1.5px solid var(--ink); transform:translate(-50%,-100%) rotate(45deg);
+    cursor:pointer; transition:.15s;
+  }
+  .pin:hover{background:var(--marigold); transform:translate(-50%,-100%) rotate(45deg) scale(1.3);}
+  .pin-tip{
+    position:absolute; transform:translate(-50%,-170%); background:var(--ink); color:#fff;
+    font-size:11px; padding:3px 8px; border-radius:5px; white-space:nowrap; pointer-events:none;
+    opacity:0; transition:.15s; font-family:'IBM Plex Mono',monospace;
+  }
+  .pin:hover + .pin-tip, .pin-tip.show{opacity:1;}
+
+  .card-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px;}
+  .dest-card{
+    background:var(--paper-raised); border:1.5px solid var(--line); border-radius:var(--radius);
+    padding:20px; cursor:pointer; position:relative; transition:.18s;
+  }
+  .dest-card:hover{border-color:var(--ink); transform:translateY(-3px); box-shadow:4px 4px 0 rgba(22,35,58,0.08);}
+  .dest-card .region-tag{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--terracotta); text-transform:uppercase; letter-spacing:0.08em;}
+  .dest-card h3{font-size:20px; margin-top:6px;}
+  .dest-card .state{font-size:12.5px; color:var(--slate); margin-top:2px;}
+  .dest-card .blurb{font-size:13px; color:var(--ink-soft); margin-top:10px; line-height:1.45;}
+  .gauge-row{display:flex; gap:14px; margin-top:14px;}
+  .gauge{font-size:11px; font-family:'IBM Plex Mono',monospace;}
+  .gauge-bar{width:70px; height:5px; background:var(--line); border-radius:99px; overflow:hidden; margin-top:4px;}
+  .gauge-fill{height:100%; border-radius:99px;}
+
+  /* ---------- MODAL ---------- */
+  .modal-backdrop{
+    position:fixed; inset:0; background:rgba(22,35,58,0.55); z-index:100;
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  .modal-backdrop.open{display:flex;}
+  .modal{
+    background:var(--paper-raised); border-radius:var(--radius); max-width:640px; width:100%;
+    max-height:88vh; overflow-y:auto; padding:32px; position:relative; border:1.5px solid var(--ink);
+  }
+  .modal-close{position:absolute; top:18px; right:18px; background:none; border:none; font-size:22px; cursor:pointer; color:var(--slate);}
+  .modal h2{font-size:28px;}
+  .modal .state{color:var(--slate); font-size:14px; margin-top:4px;}
+  .modal-section{margin-top:22px;}
+  .modal-section h4{font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--terracotta); margin-bottom:6px;}
+  .modal-section p{font-size:14.5px; margin:0; color:var(--ink-soft);}
+  .modal-gauges{display:flex; gap:24px; margin-top:20px;}
+  .ring{width:76px; height:76px;}
+
+  /* ---------- STORIES ---------- */
+  #stories{background:var(--ink); color:var(--paper);}
+  #stories .eyebrow{color:var(--marigold);}
+  #stories .section-head p{color:#B9C2D4;}
+  .story-form{
+    background:var(--paper-raised); color:var(--ink); border-radius:var(--radius);
+    padding:24px; border:1.5px solid var(--ink); margin-bottom:26px;
+  }
+  .story-form label{font-size:12.5px; font-weight:700; display:block; margin-bottom:5px;}
+  .story-form input, .story-form select, .story-form textarea{
+    width:100%; padding:10px 12px; border-radius:8px; border:1.5px solid var(--line);
+    font-family:'Public Sans',sans-serif; font-size:14px; margin-bottom:14px; background:#fff;
+  }
+  .story-form textarea{min-height:70px; resize:vertical;}
+  .story-list{display:grid; gap:14px;}
+  .story-item{
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15);
+    border-radius:12px; padding:18px;
+  }
+  .story-item .meta{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--marigold); margin-bottom:6px;}
+  .story-item p{margin:0; font-size:14px; color:#EDE8DA; line-height:1.55;}
+  .empty-note{color:#9FA9BE; font-size:13.5px; font-style:italic;}
+
+  /* ---------- IMPACT ---------- */
+  .impact-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media(max-width:700px){.impact-grid{grid-template-columns:1fr;}}
+  .impact-card{border:1.5px solid var(--line); border-radius:var(--radius); padding:24px; background:var(--paper-raised);}
+  .impact-card .num{font-family:'Fraunces',serif; font-weight:900; font-size:34px; color:var(--terracotta);}
+  .impact-card .label{font-size:13.5px; color:var(--slate); margin-top:4px;}
+
+  footer{border-top:1.5px solid var(--ink); padding:36px 0; }
+  .footer-inner{display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; align-items:center; font-size:13px; color:var(--slate);}
+  .tech-chips{display:flex; gap:6px; flex-wrap:wrap;}
+  .tech-chips span{border:1px solid var(--line); border-radius:99px; padding:4px 10px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <span class="brand-mark">Anveshan</span>
+      <span class="brand-tag">· Discover Beyond the Ordinary</span>
+    </div>
+    <div class="nav-links">
+      <a href="#discover">Finder</a>
+      <a href="#explore">Explore</a>
+      <a href="#stories">Journal</a>
+      <div class="offline-chip" id="offline-toggle"><span class="offline-dot"></span><span id="offline-label">Offline pack ready</span></div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Team Tech Titans · Omni_Tourism_6</span>
+      <h1 style="margin-top:14px;">A handful of places absorb <em>all</em> the footfall.<br>Thousands more are waiting.</h1>
+      <p class="lede">Anveshan matches every traveler to verified, lesser-known Indian destinations — then shows exactly how a visit helps, rather than strains, the place they're going.</p>
+      <div class="cta-row">
+        <a href="#discover" class="btn">Find my hidden gem →</a>
+        <a href="#explore" class="btn ghost">Browse the catalog</a>
+      </div>
+      <div class="stat-strip">
+        <div><div class="stat-num">10</div><div class="stat-label">Verified destinations, live</div></div>
+        <div><div class="stat-num">6</div><div class="stat-label">Regions covered</div></div>
+        <div><div class="stat-num">19%</div><div class="stat-label">Avg. crowd-density score</div></div>
+      </div>
+    </div>
+    <div class="stamp-panel">
+      <div class="stamp-row"><span>Discovery engine</span><span>Content-based, live</span></div>
+      <div class="stamp-row"><span>Sustainability score</span><span>Computed per destination</span></div>
+      <div class="stamp-row"><span>Crowd-density signal</span><span>0–100 scale</span></div>
+      <div class="stamp-row"><span>Community journal</span><span id="stamp-story-count">— entries</span></div>
+      <div class="stamp-row"><span>Offline mode</span><span>Prototype toggle</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="discover">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">01 · AI Recommendation Engine</span>
+      <h2>Tell us how you travel.</h2>
+      <p>Content-based filtering — not popularity rankings — matches your interests, budget, pace and season against the verified catalog. This is the same scoring logic that ships in <code class="mono">ml/recommendation_engine.py</code>.</p>
+    </div>
+    <div class="quiz-card">
+      <div class="q-group">
+        <span class="q-label">What draws you in?</span>
+        <div class="chip-row" data-key="interest">
+          <div class="chip" data-value="mountains">Mountains</div>
+          <div class="chip" data-value="heritage">Heritage &amp; architecture</div>
+          <div class="chip" data-value="tribal culture">Living culture</div>
+          <div class="chip" data-value="wildlife">Wildlife</div>
+          <div class="chip" data-value="lakes">Lakes &amp; water</div>
+          <div class="chip" data-value="trekking">Trekking</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <span class="q-label">Budget</span>
+        <div class="chip-row" data-key="budget">
+          <div class="chip" data-value="budget">Budget</div>
+          <div class="chip" data-value="mid">Mid-range</div>
+          <div class="chip" data-value="luxury">Luxury</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <span class="q-label">Pace</span>
+        <div class="chip-row" data-key="pace">
+          <div class="chip" data-value="relaxed">Relaxed</div>
+          <div class="chip" data-value="moderate">Moderate</div>
+          <div class="chip" data-value="active">Active</div>
+        </div>
+      </div>
+      <div class="q-group">
+        <span class="q-label">Season you're planning for</span>
+        <div class="chip-row" data-key="season">
+          <div class="chip" data-value="winter">Winter</div>
+          <div class="chip" data-value="autumn">Autumn</div>
+          <div class="chip" data-value="monsoon">Monsoon</div>
+          <div class="chip" data-value="summer">Summer</div>
+        </div>
+      </div>
+      <button class="btn" id="find-btn">Find my hidden gem →</button>
+      <div id="quiz-result"></div>
+    </div>
+  </div>
+</section>
+
+<section id="explore">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">02 · Interactive Discovery Board</span>
+      <h2>Explore the verified catalog.</h2>
+      <p>Filter by region, then open any destination for reach info, etiquette, safety notes, and its live sustainability and crowd-density scores.</p>
+    </div>
+    <div class="filter-bar" id="region-filters"></div>
+    <div class="map-panel" id="map-panel">
+      <span class="map-label">Discovery map — positioned by coordinates, click a pin</span>
+    </div>
+    <div class="card-grid" id="card-grid"></div>
+  </div>
+</section>
+
+<section id="stories">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">03 · Community Trust Layer</span>
+      <h2>Field notes from real travelers.</h2>
+      <p>Stories submitted here are shared across everyone viewing this prototype — a working sample of the verification-and-trust layer described in the submission.</p>
+    </div>
+    <div class="story-form">
+      <label>Your name</label>
+      <input type="text" id="story-name" placeholder="e.g. Ananya R." />
+      <label>Which destination?</label>
+      <select id="story-dest"></select>
+      <label>Your field note</label>
+      <textarea id="story-text" placeholder="What should another traveler know before they go?"></textarea>
+      <button class="btn ghost" style="border-color:var(--ink); color:var(--ink); background:var(--marigold);" id="story-submit">Add to the journal</button>
+    </div>
+    <div class="story-list" id="story-list"></div>
+  </div>
+</section>
+
+<section id="impact">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">04 · Where this is headed</span>
+      <h2>Redistribution, measured.</h2>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card"><div class="num">500+</div><div class="label">Hidden-gem destinations targeted, Year 1</div></div>
+      <div class="impact-card"><div class="num">6</div><div class="label">States in the initial pilot</div></div>
+      <div class="impact-card"><div class="num">1,000+</div><div class="label">Local guides &amp; homestays targeted</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div>Team Tech Titans — Pankaj Singh (Lead) · Dhruvika Verma · Omni_Tourism_6</div>
+    <div class="tech-chips">
+      <span>React Native</span><span>Node.js/Express</span><span>Python · scikit-learn</span>
+      <span>PostgreSQL</span><span>MongoDB</span><span>Redis</span><span>Mapbox</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const DESTINATIONS = [
+  {
+    "id": "ziro",
+    "name": "Ziro Valley",
+    "state": "Arunachal Pradesh",
+    "region": "Northeast",
+    "lat": 27.55, "lng": 93.83,
+    "categories": ["nature", "culture"],
+    "interests": ["mountains", "tribal culture", "music", "farming villages"],
+    "season": ["autumn", "winter"],
+    "budget": "budget",
+    "pace": "relaxed",
+    "sustainabilityScore": 88,
+    "crowdDensity": 14,
+    "howToReach": "Fly to Lilabari (56 km) or take an overnight train to North Lakhimpur, then a shared cab into the valley.",
+    "etiquette": "Ask before photographing Apatani elders; many still wear traditional facial tattoos and nose plugs — treat this as heritage, not spectacle.",
+    "safety": "Roads into the valley are winding; avoid night travel during monsoon landslides (Jun–Sep).",
+    "blurb": "Pine-ringed rice fields farmed by the Apatani, one of the few tribes to practise wet rice cultivation without cattle or the plough."
+  },
+  {
+    "id": "chettinad",
+    "name": "Chettinad",
+    "state": "Tamil Nadu",
+    "region": "South",
+    "lat": 10.09, "lng": 78.78,
+    "categories": ["heritage", "food"],
+    "interests": ["architecture", "cuisine", "history", "photography"],
+    "season": ["winter", "monsoon"],
+    "budget": "mid",
+    "pace": "relaxed",
+    "sustainabilityScore": 76,
+    "crowdDensity": 21,
+    "howToReach": "Nearest railhead is Karaikudi, 4–5 hrs by train from Chennai or Madurai; local autos cover the mansion villages.",
+    "etiquette": "Many mansions are private homes — a small entry donation is customary, not optional, when a family opens their door.",
+    "safety": "Village roads are unlit after dark; carry a torch and confirm return transport in advance.",
+    "blurb": "Sprawling teak-and-Athangudi-tile mansions built by a merchant community, scattered across 75 quiet villages."
+  },
+  {
+    "id": "majuli",
+    "name": "Majuli Island",
+    "state": "Assam",
+    "region": "Northeast",
+    "lat": 26.95, "lng": 94.17,
+    "categories": ["culture", "nature"],
+    "interests": ["river life", "monasteries", "crafts", "birdwatching"],
+    "season": ["winter"],
+    "budget": "budget",
+    "pace": "moderate",
+    "sustainabilityScore": 82,
+    "crowdDensity": 18,
+    "howToReach": "Ferry from Nimati Ghat near Jorhat (1 hr); island transport is by cycle, e-rickshaw, or on foot.",
+    "etiquette": "Remove footwear before entering a satra (Vaishnavite monastery); mornings are for prayer, not sightseeing crowds.",
+    "safety": "The island erodes yearly — stick to marked ferry routes and avoid riverbanks after heavy rain.",
+    "blurb": "The world's largest river island, home to 15th-century neo-Vaishnavite monasteries and mask-making villages."
+  },
+  {
+    "id": "gandikota",
+    "name": "Gandikota",
+    "state": "Andhra Pradesh",
+    "region": "South",
+    "lat": 14.82, "lng": 78.28,
+    "categories": ["nature", "adventure"],
+    "interests": ["canyons", "camping", "photography", "forts"],
+    "season": ["winter"],
+    "budget": "budget",
+    "pace": "active",
+    "sustainabilityScore": 71,
+    "crowdDensity": 26,
+    "howToReach": "Nearest station Jammalamadugu (17 km); best reached by car from Kadapa (~2 hrs).",
+    "etiquette": "The gorge edge has no railing — stay well back from the rim and don't move loose stones onto climbers below.",
+    "safety": "Summer heat is extreme (45°C+); carry more water than you think you need and avoid midday treks.",
+    "blurb": "Called the 'Grand Canyon of India' — a fort ruin perched over a gorge carved by the Pennar river."
+  },
+  {
+    "id": "khonoma",
+    "name": "Khonoma",
+    "state": "Nagaland",
+    "region": "Northeast",
+    "lat": 25.65, "lng": 94.05,
+    "categories": ["nature", "culture"],
+    "interests": ["trekking", "conservation", "village life", "birdwatching"],
+    "season": ["autumn", "winter"],
+    "budget": "budget",
+    "pace": "active",
+    "sustainabilityScore": 93,
+    "crowdDensity": 9,
+    "howToReach": "20 km from Kohima by shared taxi; the last stretch is a scenic drive through terraced hills.",
+    "etiquette": "This is India's first 'green village' — a community-declared no-hunting zone; respect all conservation signage.",
+    "safety": "Trails to the Tragopan sanctuary are steep and unmarked in places; a local guide is strongly recommended.",
+    "blurb": "A Angami Naga village that turned its own hunting grounds into a 70 sq km wildlife sanctuary — conservation led entirely by the community."
+  },
+  {
+    "id": "anegundi",
+    "name": "Anegundi",
+    "state": "Karnataka",
+    "region": "South",
+    "lat": 15.34, "lng": 76.47,
+    "categories": ["heritage", "nature"],
+    "interests": ["ruins", "coracle rides", "bouldering", "history"],
+    "season": ["winter", "monsoon"],
+    "budget": "budget",
+    "pace": "moderate",
+    "sustainabilityScore": 79,
+    "crowdDensity": 24,
+    "howToReach": "Cross the Tungabhadra by coracle or the new bridge from Hampi, 5 km away.",
+    "etiquette": "Anegundi predates Hampi and is still an active village — walk its lanes as a guest, not a photo backdrop.",
+    "safety": "Coracle crossings pause when the river is in spate during monsoon; check locally before crossing.",
+    "blurb": "Hampi's quieter twin across the river — boulder-strewn banana plantations, older ruins, and far fewer tour buses."
+  },
+  {
+    "id": "patan",
+    "name": "Patan",
+    "state": "Gujarat",
+    "region": "West",
+    "lat": 23.85, "lng": 72.13,
+    "categories": ["heritage", "food"],
+    "interests": ["architecture", "handicrafts", "history", "photography"],
+    "season": ["winter"],
+    "budget": "mid",
+    "pace": "relaxed",
+    "sustainabilityScore": 74,
+    "crowdDensity": 22,
+    "howToReach": "125 km from Ahmedabad by road (2.5 hrs) or a direct train to Patan Junction.",
+    "etiquette": "Patola sari weaving families welcome visitors to their looms — ask before entering a home workshop.",
+    "safety": "Generally safe; the stepwell gets slippery after rain, mind the steps near the water tank.",
+    "blurb": "Home to Rani ki Vav, a UNESCO stepwell carved like an inverted temple, and the double-ikat Patola weaving tradition."
+  },
+  {
+    "id": "mawlynnong",
+    "name": "Mawlynnong",
+    "state": "Meghalaya",
+    "region": "Northeast",
+    "lat": 25.20, "lng": 91.89,
+    "categories": ["nature", "culture"],
+    "interests": ["waterfalls", "living root bridges", "village life", "hiking"],
+    "season": ["autumn", "winter"],
+    "budget": "budget",
+    "pace": "moderate",
+    "sustainabilityScore": 91,
+    "crowdDensity": 30,
+    "howToReach": "90 km from Shillong (2.5–3 hrs) via shared sumo or private car.",
+    "etiquette": "The village is community-run and litter-free by local rule — carry out everything you carry in.",
+    "safety": "The living root bridge trail has steep, wet stone steps; wear grip-soled shoes.",
+    "blurb": "A Khasi village famous for community-driven cleanliness and a living root bridge grown, not built, over generations."
+  },
+  {
+    "id": "bhandardara",
+    "name": "Bhandardara",
+    "state": "Maharashtra",
+    "region": "West",
+    "lat": 19.54, "lng": 73.75,
+    "categories": ["nature", "adventure"],
+    "interests": ["lakes", "trekking", "camping", "waterfalls"],
+    "season": ["monsoon", "winter"],
+    "budget": "budget",
+    "pace": "active",
+    "sustainabilityScore": 68,
+    "crowdDensity": 34,
+    "howToReach": "3.5–4 hrs by road from Mumbai or Pune; last leg through Igatpuri is winding hill road.",
+    "etiquette": "Camp only in designated forest-department zones; open fires are restricted in dry months.",
+    "safety": "Randha and Umbrella Falls get dangerously slippery in monsoon — respect barrier ropes.",
+    "blurb": "A colonial-era lake ringed by waterfalls and the Kalsubai trek, Maharashtra's highest peak, without the Lonavala crowds."
+  },
+  {
+    "id": "loktak",
+    "name": "Loktak Lake",
+    "state": "Manipur",
+    "region": "Northeast",
+    "lat": 24.55, "lng": 93.78,
+    "categories": ["nature", "culture"],
+    "interests": ["lakes", "wildlife", "fishing villages", "boating"],
+    "season": ["winter"],
+    "budget": "budget",
+    "pace": "relaxed",
+    "sustainabilityScore": 85,
+    "crowdDensity": 12,
+    "howToReach": "48 km from Imphal (1.5 hrs) by taxi to Sendra or the fishing village of Champu Khangpok.",
+    "etiquette": "Phumdi (floating biomass) islands support fishing families — don't step onto private phumdi huts uninvited.",
+    "safety": "Boats have no life jackets by default — ask explicitly and avoid low-visibility early morning fog crossings.",
+    "blurb": "The largest freshwater lake in Northeast India, dotted with floating phumdi islands and home to the endangered Sangai deer."
+  }
+];
+
+// ---------- offline toggle ----------
+const offlineToggle = document.getElementById('offline-toggle');
+const offlineLabel = document.getElementById('offline-label');
+let offline = false;
+offlineToggle.addEventListener('click', () => {
+  offline = !offline;
+  offlineToggle.classList.toggle('off', offline);
+  offlineLabel.textContent = offline ? 'Guides cached offline' : 'Offline pack ready';
+});
+
+// ---------- quiz ----------
+const answers = { interest:null, budget:null, pace:null, season:null };
+document.querySelectorAll('.chip-row').forEach(row => {
+  const key = row.dataset.key;
+  row.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      row.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      answers[key] = chip.dataset.value;
+    });
+  });
+});
+
+function scoreDestination(d, a){
+  let score = 0, reasons = [];
+  if (a.interest && d.interests.includes(a.interest)) { score += 40; reasons.push(a.interest.replace('_',' ')); }
+  if (a.interest && d.categories.includes(a.interest)) { score += 20; }
+  if (a.budget && d.budget === a.budget) { score += 20; reasons.push(a.budget + ' budget fit'); }
+  if (a.pace && d.pace === a.pace) { score += 10; reasons.push(a.pace + ' pace'); }
+  if (a.season && d.season.includes(a.season)) { score += 10; reasons.push('good in ' + a.season); }
+  return { score, reasons };
+}
+
+document.getElementById('find-btn').addEventListener('click', () => {
+  const resultEl = document.getElementById('quiz-result');
+  if (!answers.interest || !answers.budget || !answers.pace || !answers.season){
+    resultEl.innerHTML = `<p style="margin-top:16px;color:#B4432F;font-size:13.5px;">Pick one option in every row above — the engine needs all four signals to score a match.</p>`;
+    return;
+  }
+  const ranked = DESTINATIONS.map(d => ({ d, ...scoreDestination(d, answers) }))
+    .sort((a,b) => b.score - a.score);
+  const top = ranked[0];
+  resultEl.innerHTML = `
+    <div class="match-card">
+      <div class="match-badge">${top.score}%</div>
+      <div>
+        <div class="eyebrow" style="color:var(--forest);">Top match</div>
+        <h3 style="margin-top:4px;">${top.d.name}, ${top.d.state}</h3>
+        <div class="match-reason">Matched on: <b>${top.reasons.join(', ') || 'region fit'}</b></div>
+        <p style="font-size:13.5px;color:var(--ink-soft);margin-top:10px;">${top.d.blurb}</p>
+        <a href="#explore" class="btn ghost" style="margin-top:12px;padding:9px 16px;font-size:12.5px;" onclick="setTimeout(()=>openModal('${top.d.id}'),400)">View full profile →</a>
+      </div>
+    </div>`;
+});
+
+// ---------- region filters ----------
+const regions = ['All', ...new Set(DESTINATIONS.map(d => d.region))];
+const filterBar = document.getElementById('region-filters');
+let activeRegion = 'All';
+regions.forEach(r => {
+  const chip = document.createElement('div');
+  chip.className = 'chip' + (r === 'All' ? ' active' : '');
+  chip.textContent = r;
+  chip.addEventListener('click', () => {
+    activeRegion = r;
+    filterBar.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    renderCards();
+    renderMap();
+  });
+  filterBar.appendChild(chip);
+});
+
+// ---------- map ----------
+const mapPanel = document.getElementById('map-panel');
+function renderMap(){
+  mapPanel.querySelectorAll('.pin, .pin-tip').forEach(el => el.remove());
+  const list = activeRegion === 'All' ? DESTINATIONS : DESTINATIONS.filter(d => d.region === activeRegion);
+  const lats = DESTINATIONS.map(d=>d.lat), lngs = DESTINATIONS.map(d=>d.lng);
+  const latMin = Math.min(...lats)-1, latMax = Math.max(...lats)+1;
+  const lngMin = Math.min(...lngs)-1, lngMax = Math.max(...lngs)+1;
+  list.forEach(d => {
+    const x = ((d.lng - lngMin) / (lngMax - lngMin)) * 88 + 6;
+    const y = (1 - (d.lat - latMin) / (latMax - latMin)) * 78 + 10;
+    const pin = document.createElement('div');
+    pin.className = 'pin';
+    pin.style.left = x + '%';
+    pin.style.top = y + '%';
+    pin.title = d.name;
+    pin.addEventListener('click', () => openModal(d.id));
+    const tip = document.createElement('div');
+    tip.className = 'pin-tip';
+    tip.style.left = x + '%';
+    tip.style.top = y + '%';
+    tip.textContent = d.name;
+    pin.addEventListener('mouseenter', () => tip.classList.add('show'));
+    pin.addEventListener('mouseleave', () => tip.classList.remove('show'));
+    mapPanel.appendChild(pin);
+    mapPanel.appendChild(tip);
+  });
+}
+
+// ---------- cards ----------
+const cardGrid = document.getElementById('card-grid');
+function gaugeColor(pct, invert){
+  const v = invert ? 100 - pct : pct;
+  if (v >= 66) return '#2F5D45';
+  if (v >= 33) return '#E7A427';
+  return '#B4432F';
+}
+function renderCards(){
+  cardGrid.innerHTML = '';
+  const list = activeRegion === 'All' ? DESTINATIONS : DESTINATIONS.filter(d => d.region === activeRegion);
+  list.forEach(d => {
+    const card = document.createElement('div');
+    card.className = 'dest-card';
+    card.innerHTML = `
+      <div class="region-tag">${d.region} · ${d.categories.join(' / ')}</div>
+      <h3>${d.name}</h3>
+      <div class="state">${d.state}</div>
+      <div class="blurb">${d.blurb}</div>
+      <div class="gauge-row">
+        <div class="gauge">Sustainability<div class="gauge-bar"><div class="gauge-fill" style="width:${d.sustainabilityScore}%;background:${gaugeColor(d.sustainabilityScore,false)}"></div></div></div>
+        <div class="gauge">Crowd density<div class="gauge-bar"><div class="gauge-fill" style="width:${d.crowdDensity}%;background:${gaugeColor(d.crowdDensity,true)}"></div></div></div>
+      </div>
+    `;
+    card.addEventListener('click', () => openModal(d.id));
+    cardGrid.appendChild(card);
+  });
+}
+
+// ---------- modal ----------
+const backdrop = document.getElementById('modal-backdrop');
+const modalContent = document.getElementById('modal-content');
+function openModal(id){
+  const d = DESTINATIONS.find(x => x.id === id);
+  modalContent.innerHTML = `
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <span class="eyebrow">${d.region} · ${d.categories.join(' / ')}</span>
+    <h2>${d.name}</h2>
+    <div class="state">${d.state}</div>
+    <p style="margin-top:14px;color:var(--ink-soft);font-size:14.5px;">${d.blurb}</p>
+    <div class="modal-gauges">
+      <div>
+        <div class="gauge">Sustainability score</div>
+        <div class="gauge-bar" style="width:120px;margin-top:6px;"><div class="gauge-fill" style="width:${d.sustainabilityScore}%;background:${gaugeColor(d.sustainabilityScore,false)}"></div></div>
+        <div class="mono" style="font-size:16px;margin-top:4px;">${d.sustainabilityScore}/100</div>
+      </div>
+      <div>
+        <div class="gauge">Crowd density</div>
+        <div class="gauge-bar" style="width:120px;margin-top:6px;"><div class="gauge-fill" style="width:${d.crowdDensity}%;background:${gaugeColor(d.crowdDensity,true)}"></div></div>
+        <div class="mono" style="font-size:16px;margin-top:4px;">${d.crowdDensity}/100</div>
+      </div>
+    </div>
+    <div class="modal-section"><h4>How to reach</h4><p>${d.howToReach}</p></div>
+    <div class="modal-section"><h4>Local etiquette</h4><p>${d.etiquette}</p></div>
+    <div class="modal-section"><h4>Safety notes</h4><p>${d.safety}</p></div>
+    <div class="modal-section"><h4>Best season</h4><p>${d.season.join(', ')} · Budget tier: ${d.budget} · Pace: ${d.pace}</p></div>
+  `;
+  backdrop.classList.add('open');
+}
+function closeModal(){ backdrop.classList.remove('open'); }
+backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+
+// ---------- stories (persisted via window.storage, shared) ----------
+const storyDestSelect = document.getElementById('story-dest');
+DESTINATIONS.forEach(d => {
+  const opt = document.createElement('option');
+  opt.value = d.id; opt.textContent = d.name;
+  storyDestSelect.appendChild(opt);
+});
+
+async function loadStories(){
+  try{
+    const res = await window.storage.get('anveshan:stories', true);
+    return res && res.value ? JSON.parse(res.value) : [];
+  }catch(e){ return []; }
+}
+async function saveStories(list){
+  try{ await window.storage.set('anveshan:stories', JSON.stringify(list), true); }catch(e){ console.error(e); }
+}
+async function renderStories(){
+  const list = await loadStories();
+  const storyList = document.getElementById('story-list');
+  document.getElementById('stamp-story-count').textContent = list.length + ' entries';
+  if (!list.length){
+    storyList.innerHTML = `<div class="empty-note">No field notes yet — be the first to add one below.</div>`;
+    return;
+  }
+  storyList.innerHTML = list.map(s => {
+    const dest = DESTINATIONS.find(d => d.id === s.destinationId);
+    return `<div class="story-item">
+      <div class="meta">${s.author} · ${dest ? dest.name : 'Unknown'}</div>
+      <p>${s.text}</p>
+    </div>`;
+  }).join('');
+}
+document.getElementById('story-submit').addEventListener('click', async () => {
+  const name = document.getElementById('story-name').value.trim();
+  const destId = storyDestSelect.value;
+  const text = document.getElementById('story-text').value.trim();
+  if (!name || !text){ return; }
+  const list = await loadStories();
+  list.unshift({ author:name, destinationId:destId, text, createdAt: Date.now() });
+  await saveStories(list);
+  document.getElementById('story-name').value = '';
+  document.getElementById('story-text').value = '';
+  renderStories();
+});
+
+// ---------- init ----------
+renderMap();
+renderCards();
+renderStories();
+</script>
+</body>
+</html>
